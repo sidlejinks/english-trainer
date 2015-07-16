@@ -16,19 +16,18 @@ import org.springframework.web.bind.annotation.ResponseStatus;
  * Created by dtorianik on 7/16/2015.
  */
 @Controller
-@RequestMapping("/items")
 public class ItemsController {
 
     @Autowired
     private LanguageItemService languageItemService;
 
-    @RequestMapping(value = "/add", method = RequestMethod.POST)
+    @RequestMapping(value = "/items/add", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.OK)
     public void addItem(@RequestBody AddItemFormDto addItemForm) {
         languageItemService.save(addItemForm);
     }
 
-    @RequestMapping(method = RequestMethod.GET)
+    @RequestMapping(value = "/dictionary", method = RequestMethod.GET)
     public String showItemsPage(Model model) {
         model.addAttribute("languageItems", languageItemService.find());
         return "items";

@@ -15,7 +15,7 @@
 <body>
     <div>
         <a href="/">Home</a>
-        <a href="/items">Language Items</a>
+        <a href="/dictionary">Manage Dictionary</a>
     </div>
     <div>
         <textarea class="item-original" cols="20" rows="2"></textarea>

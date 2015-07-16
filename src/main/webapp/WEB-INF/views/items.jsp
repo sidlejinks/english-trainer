@@ -15,7 +15,7 @@
 <body>
 <div>
     <a href="/">Home</a>
-    <a href="/items">Language Items</a>
+    <a href="/dictionary">Manage Dictionary</a>
 </div>
 <table>
     <tr>
