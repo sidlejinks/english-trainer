@@ -13,18 +13,25 @@
 </head>
 
 <body>
-    <div>
-        <a href="/">Home</a>
-        <a href="/items">Language Items</a>
-    </div>
-    <div>
-        <textarea class="item-original" cols="20" rows="2"></textarea>
-        <textarea class="item-translation" cols="20" rows="2"></textarea>
-        <button class="add-item-submit">Add</button>
-    </div>
-    <p class="result-area"></p>
+<div>
+    <a href="/">Home</a>
+    <a href="/items">Language Items</a>
+</div>
+<table>
+    <tr>
+        <th>Language Item</th>
+        <th>Translation</th>
+    </tr>
 
-<script src="${jQuery}"></script>
+    <c:forEach items="${languageItems}" var="item">
+        <tr>
+            <td>${item.original}</td>
+            <td>${item.translation}</td>
+        </tr>
+    </c:forEach>
+</table>
+
 <script src="${mainJs}"></script>
+<script src="${jQuery}"></script>
 </body>
 </html>
