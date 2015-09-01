@@ -9,10 +9,10 @@ http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
 http://www.springframework.org/schema/context
 http://www.springframework.org/schema/context/spring-context-3.0.xsd
 http://www.springframework.org/schema/security
-http://www.springframework.org/schema/security/spring-security-3.1.xsd">
+http://www.springframework.org/schema/security/spring-security.xsd">
 
     <security:http auto-config="true">
-        <security:intercept-url pattern="/home/**" access="ROLE_USER"/>
+        <security:intercept-url pattern="/home/**" access="USERS"/>
         <security:form-login login-page="/" default-target-url="/home"
                              authentication-failure-url="/?fail"
                              username-parameter="username"
@@ -21,7 +21,7 @@ http://www.springframework.org/schema/security/spring-security-3.1.xsd">
     </security:http>
 
     <security:authentication-manager>
-        <security:authentication-provider user-service-ref="xxx" />
+        <security:authentication-provider user-service-ref="mongoDbUserDetailsService" />
     </security:authentication-manager>
 
 </beans>

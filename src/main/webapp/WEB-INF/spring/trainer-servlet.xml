@@ -21,8 +21,6 @@ http://www.springframework.org/schema/context/spring-context-4.0.xsd http://www.
     
     <mvc:resources mapping="/static/**" location="WEB-INF/static/"/>
 
-    
-
     <bean id="viewResolver"
           class="org.springframework.web.servlet.view.UrlBasedViewResolver">
         <property name="viewClass"
