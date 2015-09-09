@@ -19,6 +19,7 @@ public class LanguageItem implements Serializable {
     private String id;
     private String original;
     private String translation;
+    private TranslationOptions options;
     private LanguageItemType type;
 
     public LanguageItem(String original, String translation, LanguageItemType type) {
@@ -53,5 +54,13 @@ public class LanguageItem implements Serializable {
 
     public void setTranslation(String translation) {
         this.translation = translation;
+    }
+
+    public TranslationOptions getOptions() {
+        return options;
+    }
+
+    public void setOptions(TranslationOptions options) {
+        this.options = options;
     }
 }

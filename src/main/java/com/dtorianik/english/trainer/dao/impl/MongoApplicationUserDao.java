@@ -9,7 +9,7 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class DefaultApplicationUserDao implements ApplicationUserDao {
+public class MongoApplicationUserDao implements ApplicationUserDao {
 
     public static final String APP_USER_COLLECTION = "app_user";
 

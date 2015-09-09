@@ -2,6 +2,7 @@ package com.dtorianik.english.trainer.mongo;
 
 import com.dtorianik.english.trainer.dao.ApplicationUserDao;
 import com.dtorianik.english.trainer.domain.ApplicationUser;
+import com.dtorianik.english.trainer.domain.CustomPrincipalDetails;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.security.core.GrantedAuthority;
@@ -25,10 +26,13 @@ public class MongoDbUserDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         ApplicationUser applicationUser = userDao.find(username);
-        return new User(applicationUser.getUsername(),
-                                            applicationUser.getPassword(),
-                                            true, true, true, true,
-                                            resolveAuthorities(applicationUser.getGroups()));
+        CustomPrincipalDetails userDetails = new CustomPrincipalDetails(applicationUser.getUsername(),
+                applicationUser.getPassword(),
+                true, true, true, true,
+                resolveAuthorities(applicationUser.getGroups()));
+        userDetails.setFullName(applicationUser.getInfo().getFirstName() + " " +
+                                applicationUser.getInfo().getLastName());
+        return userDetails;
     }
 
     private Collection<GrantedAuthority> resolveAuthorities(List<String> groups) {

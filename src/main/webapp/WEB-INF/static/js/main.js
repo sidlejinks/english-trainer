@@ -1,4 +1,11 @@
 $(function(){
+    var token = $("meta[name='_csrf']").attr("content");
+    var header = $("meta[name='_csrf_header']").attr("content");
+
+    $(document).ajaxSend(function(e, xhr, options) {
+        xhr.setRequestHeader(header, token);
+    });
+
     $('.add-item-submit').on('click', function() {
         var originalItem = $('.item-original').val();
         var translationItem = $('.item-translation').val();
@@ -12,7 +19,7 @@ $(function(){
 
             $.ajax({
                 type: 'post',
-                url: '/items/add',
+                url: '/dictionary/add',
                 data: JSON.stringify({
                     original: originalItem,
                     translation: translationItem

@@ -6,6 +6,7 @@
     <c:url value="/static/css/main.css" var="mainCss"/>
     <c:url value="/static/js/main.js" var="mainJs"/>
     <c:url value="/static/js/vendor/jquery-2.1.4.js" var="jQuery"/>
+    <c:url value="/login" var="springSecurityUrl"/>
 
     <meta charset="utf-8">
     <title>The English Trainer</title>
@@ -14,17 +15,18 @@
 
 <body>
     <div>
-        <a href="/">Home</a>
-        <a href="/dictionary">Manage Dictionary</a>
+        <form method="post" action="${springSecurityUrl}">
+            <input type="text" name="username" placeholder="Please, enter your username..."/>
+            <input type="password" name="password" placeholder="...and then password"/>
+            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+            <input type="submit" value="Submit"/>
+        </form>
     </div>
-    <div>
-        <textarea class="item-original" cols="20" rows="2"></textarea>
-        <textarea class="item-translation" cols="20" rows="2"></textarea>
-        <button class="add-item-submit">Add</button>
-    </div>
-    <p class="result-area"></p>
-
-<script src="${jQuery}"></script>
-<script src="${mainJs}"></script>
+    <c:if test="${param.fail ne null}">
+        <div class="login-fail">
+            Provided credentials were wrong.<br/>
+            Would you like to <a href="/">sign up</a>?
+        </div>
+    </c:if>
 </body>
 </html>
