@@ -1,9 +1,12 @@
 package com.dtorianik.english.trainer.converters.impl;
 
 import com.dtorianik.english.trainer.converters.Converter;
+import com.dtorianik.english.trainer.domain.Language;
 import com.dtorianik.english.trainer.domain.LanguageItem;
 import com.dtorianik.english.trainer.domain.LanguageItemType;
+import com.dtorianik.english.trainer.domain.TranslationOptions;
 import com.dtorianik.english.trainer.dto.AddItemFormDto;
+import org.apache.tika.language.LanguageIdentifier;
 import org.springframework.stereotype.Component;
 
 /**
@@ -14,11 +17,26 @@ public class AddItemFormToLanguageItemConverter implements Converter<AddItemForm
 
     @Override
     public LanguageItem convert(AddItemFormDto from) {
-        LanguageItemType type = resolveLanguageItemType(from.getOriginal());
-        return new LanguageItem(from.getOriginal(), from.getTranslation(), type);
+        LanguageItemType type = resolveItemType(from.getOriginal());
+        return new LanguageItem(from.getOriginal(), from.getTranslation(),
+                                resolveTranslationOptions(from), type);
     }
 
-    private LanguageItemType resolveLanguageItemType(String item) {
+    private TranslationOptions resolveTranslationOptions(AddItemFormDto from) {
+        // move this to Spring bean (factory)
+        LanguageIdentifier identifier = new LanguageIdentifier(from.getOriginal());
+        Language originalLanguage = createLanguage(identifier);
+        identifier = new LanguageIdentifier(from.getTranslation());
+        Language translationLanguage = createLanguage(identifier);
+        return new TranslationOptions(originalLanguage, translationLanguage);
+    }
+
+    private Language createLanguage(LanguageIdentifier identifier) {
+        Language result = Language.valueOf(identifier.getLanguage());
+        return (result != null) ? result : Language.UNKNOWN;
+    }
+
+    private LanguageItemType resolveItemType(String item) {
         int startIndex = 0;
 
         if (item.startsWith("a ")) {

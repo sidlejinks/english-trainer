@@ -7,6 +7,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import java.io.Serializable;
 
 import static com.dtorianik.english.trainer.dao.impl.MongoLanguageItemDao.LANGUAGE_ITEM_COLLECTION;
+import static com.dtorianik.english.trainer.domain.Language.UNKNOWN;
 
 /**
  * @author Dmytro Torianik
@@ -25,6 +26,14 @@ public class LanguageItem implements Serializable {
     public LanguageItem(String original, String translation, LanguageItemType type) {
         this.original = original;
         this.translation = translation;
+        this.type = type;
+        this.options = new TranslationOptions(UNKNOWN, UNKNOWN);
+    }
+
+    public LanguageItem(String original, String translation, TranslationOptions options, LanguageItemType type) {
+        this.original = original;
+        this.translation = translation;
+        this.options = options;
         this.type = type;
     }
 

@@ -8,6 +8,11 @@ public class TranslationOptions {
     private Language source;
     private Language target;
 
+    public TranslationOptions(Language source, Language target) {
+        this.source = source;
+        this.target = target;
+    }
+
     public Language getSource() {
         return source;
     }
