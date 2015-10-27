@@ -19,7 +19,7 @@ http://www.springframework.org/schema/security/spring-security.xsd">
                              username-parameter="username"
                              password-parameter="password"
                              login-processing-url="/login" />
-        <security:logout logout-url="/logout" logout-success-url="/"/>
+        <security:logout logout-url="/logout"/>
     </security:http>
 
     <security:authentication-manager>

@@ -25,12 +25,18 @@
     <sec:authorize access="isFullyAuthenticated()" var="isFullyAuthenticated">
         Hello, <sec:authentication property="principal.fullName"/>!
     </sec:authorize>
+
     <sec:authorize access="${isFullyAuthenticated} and hasAuthority('admin')">
         <a href="${adminUrl}">Administration</a>
     </sec:authorize>
     <a href="${manageDictionaryUrl}">Manage Dictionary</a>
     <a href="${settingsUrl}">Settings</a>
-    <a href="${logoutUrl}">Log out</a>
+    <sec:authorize access="${isFullyAuthenticated}">
+        <form method="post" action="${logoutUrl}">
+            <a href="#" onclick="document.forms[0].submit();return false;">Log out</a>
+            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+        </form>
+    </sec:authorize>
 </div>
 <table>
     <tr>
